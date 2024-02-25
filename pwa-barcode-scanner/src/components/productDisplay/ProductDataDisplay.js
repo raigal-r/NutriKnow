@@ -12,14 +12,13 @@ import AddProductInfo from '../addProductInfo';
 import NutriScore from '../nutriScore';
 import NovaGroup from '../novaGroup';
 import EcoScore from '../ecoScore';
-import NutrientTable from './NutrientTable'
 
 const ProductDataDisplay = ({ data }) => {
   const { code, status, product } = data;
   const [p, setP] = useState(undefined);
   console.log('Data:', data)
   console.log('product', product)
-  console.log('code',code)
+  console.log('nutriments',product.nutriments)
 
   useEffect(() => {
     if (status === 1) {
@@ -45,7 +44,6 @@ const ProductDataDisplay = ({ data }) => {
         <NutriScore score={product.nutrition_grades} extraClass="nutriscore__detail" />
         <NovaGroup group={product.nova_group} tag={product.nova_groups_tags} />
         <EcoScore score={product.ecoscore_grade} />
-        <NutrientTable score={product}/>
       </div>
       {p !== undefined ?
         (<>

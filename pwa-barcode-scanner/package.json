@@ -4,7 +4,8 @@
   "description": "Barcode scanner with product information",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --display-error-details",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server --mode development --display-error-details",
+    "start": "node --openssl-legacy-provider server.js",
     "build": "rm -rf ./dist/* && webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint . --fix",
