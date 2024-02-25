@@ -7,8 +7,8 @@ import Footer from "@/components/instructionsComponent/navigation/footer";
 const config = createConfig(
   getDefaultConfig({
     // Required API Keys
-    alchemyId: process.env.ALCHEMY_API_KEY, // or infuraId
-    walletConnectProjectId: "43028c434913150e1a928818d45a7a10",
+    alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || "", // or infuraId
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "",
 
     // Required
     appName: "You Create Web3 Dapp",
