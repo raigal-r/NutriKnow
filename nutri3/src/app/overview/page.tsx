@@ -1,7 +1,8 @@
-import "@rainbow-me/rainbowkit/styles.css";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {  Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import Link from "next/link";
 
 export default function Overview() {
   return (
@@ -17,7 +18,9 @@ export default function Overview() {
               </p>
             </div>
             <div className="flex items-center justify-end gap-4">
-              <Button variant="outline">View All Actions</Button>
+              <Link href="/overview/new">
+              <Button variant="outline">Add new Food Record</Button>
+              </Link>
             </div>
             <Card>
               <CardContent className="p-0">

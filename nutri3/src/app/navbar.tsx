@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import "./globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
 import Link from "next/link";
 //import { ConnectButton } from "@rainbow-me/rainbowkit";
 
