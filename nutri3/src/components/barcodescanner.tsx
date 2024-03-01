@@ -25,6 +25,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
   const resetScan = () => {
     setResult("");
   }
+
   const getProductFromBarcode = async (barcode: String) => {
     console.log(barcode);
     const res = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`)
@@ -51,7 +52,10 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
       <button onClick={resetScan}>Reset Scan</button>
       <p>
         <span>Last result:</span>
-        <span>{result}</span>
+        <Link href="/answer/">
+          <span>{result}</span>
+        </Link>
+     
       </p>
     </div>
   );
