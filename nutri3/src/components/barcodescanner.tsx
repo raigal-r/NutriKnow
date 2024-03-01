@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useZxing } from "react-zxing";
 import axios from "axios";
+import Link from "next/link";
 
 interface BarcodeScannerProps {
   active: boolean;
