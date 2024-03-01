@@ -3,16 +3,31 @@ import { wagmiconfig } from "@/lib/wagmiconfig";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { mainnet, polygon, optimism, arbitrum, base, zora } from "wagmi/chains";
+import { baseSepolia , arbitrumSepolia} from "wagmi/chains";
+
+import {PrivyProvider} from '@privy-io/react-auth';
+import type {PrivyClientConfig} from '@privy-io/react-auth';
 
 const config = getDefaultConfig({
   appName: "nutri3",
-  projectId: "9faf3e3a0f9dc0274e3b24b094dcfc3b",
-  chains: [mainnet, polygon, optimism, arbitrum, base, zora],
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
+  chains: [baseSepolia, arbitrumSepolia],
   //ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
 const queryClient = new QueryClient();
+
+const privyConfig: PrivyClientConfig = {
+  embeddedWallets: {
+    createOnLogin: 'users-without-wallets',
+    requireUserPasswordOnCreate: true,
+    noPromptOnSignature: false,
+  },
+  loginMethods: ['wallet', 'email', 'sms', 'google', 'farcaster'],
+  appearance: {
+    showWalletLoginFirst: false,
+  },
+};
 
 export const AuthProvider = ({
   children,
@@ -20,10 +35,12 @@ export const AuthProvider = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={config}>
-        <RainbowKitProvider>{children}</RainbowKitProvider>
-      </WagmiProvider>
-    </QueryClientProvider>
+    <PrivyProvider appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID as string} config={privyConfig}>
+      <QueryClientProvider client={queryClient}>
+        <WagmiProvider config={config}>
+          {children}
+        </WagmiProvider>
+      </QueryClientProvider>
+    </PrivyProvider>
   );
 };
