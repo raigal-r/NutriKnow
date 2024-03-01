@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./authProvider";
 import {Navbar} from "./navbar";
+import '@rainbow-me/rainbowkit/styles.css';
 
 const inter = Inter({ subsets: ["latin"] });
 /*

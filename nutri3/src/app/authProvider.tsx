@@ -20,12 +20,10 @@ export const AuthProvider = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
-          {children}
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={config}>
+        <RainbowKitProvider>{children}</RainbowKitProvider>
+      </WagmiProvider>
+    </QueryClientProvider>
   );
 };
