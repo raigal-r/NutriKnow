@@ -5,7 +5,8 @@ import { useMemo } from "react";
 import { insertDataIntoMessages } from "./transform";
 import { ChatInput, ChatMessages } from "./ui/chat";
 
-export default function ChatSection() {
+export default function ChatSection(value) {
+  
   const {
     messages,
     input,

@@ -12,6 +12,7 @@
     "@alchemy/aa-accounts": "^3.4.0",
     "@alchemy/aa-alchemy": "^3.4.0",
     "@alchemy/aa-core": "^3.4.0",
+    "@nanostores/react": "github:ai/react",
     "@privy-io/react-auth": "^1.57.2",
     "@privy-io/wagmi": "^0.2.0",
     "@radix-ui/react-label": "^2.0.2",

@@ -3,6 +3,8 @@ import "./globals.css";
 import { AuthProvider } from "./authProvider";
 import {Navbar} from "./navbar";
 import '@rainbow-me/rainbowkit/styles.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const inter = Inter({ subsets: ["latin"] });
 /*
@@ -19,10 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <Navbar />
-          {children}
-        </AuthProvider>
+
+          <AuthProvider>
+            <Navbar />
+            {children}
+          </AuthProvider>
+
+
       </body>
     </html>
   );

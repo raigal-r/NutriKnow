@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import {BarcodeScanner} from "@/components/barcodescanner";
 
 const NewRecord = () => {
+  
   const [cameraOpen, setCameraOpen] = useState(false);
   // create a on page load function
   return (

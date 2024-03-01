@@ -19,7 +19,7 @@ export default function Overview() {
             </div>
             <div className="flex items-center justify-end gap-4">
               <Link href="/overview/new">
-              <Button variant="outline">Add new Food Record</Button>
+                <Button variant="outline">Add new Food Record</Button>
               </Link>
             </div>
             <Card>
