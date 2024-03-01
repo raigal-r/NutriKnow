@@ -30,7 +30,7 @@ export const Navbar = () => {
         className="inline-flex items-center font-semibold text-gray-900 dark:text-gray-50"
         href="#"
       >
-        Acme Inc
+        Nutri-Know
       </Link>
       <nav className="ml-auto flex items-center space-x-4">
         {/* <ConnectButton /> */}
