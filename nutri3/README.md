@@ -27,10 +27,10 @@ bun dev
 User Authentication is build using common web3 wallets as well as social logins using Privy, enabling the enduser to have a web2 user login experience.
 
 ### Smart contract interaction
-The implemented smart contract acts for user management and RBAC roles within the application
-
+The implemented smart contract acts for user management and RBAC roles within the application.
 
 ### Profile information
+User information are stored using the smart contract.
 
 ### User types
 Enduser
@@ -44,13 +44,13 @@ Todo: Explain what should happen. Is this implemented?
 Issue proof on creation of xyz
 
 ### AI Interaction
-Explain
-Manage content
-User experience text based
+implemented on ./src/app/api
+Custom context using own DB for OpenAI
+Output is text based rating of the food whic is base for attestation
 
 ### Proof of knowledge
-Explain
-Ensure quality contribution / no fake
+Attestation of AI outputs
+Used on further AI interactions.
 
 ## User Flow
 
