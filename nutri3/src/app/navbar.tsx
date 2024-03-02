@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import Link from "next/link";
-//import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import {useAccount, useDisconnect} from 'wagmi';
-import {useSetActiveWallet} from '@privy-io/wagmi';
-import {usePrivy, useWallets} from '@privy-io/react-auth';
+// import {useSetActiveWallet} from '@privy-io/wagmi';
+// import {usePrivy, useWallets} from '@privy-io/react-auth';
 import { shorten } from "./utils";
 
 const MonoLabel = ({label}: {label: string}) => {
@@ -17,12 +17,12 @@ const MonoLabel = ({label}: {label: string}) => {
 export const Navbar = () => {
 
   // Privy hooks
-  const {ready, user, authenticated, login, connectWallet, logout, linkWallet} = usePrivy();
-  const {wallets} = useWallets();
+  // const {ready, user, authenticated, login, connectWallet, logout, linkWallet} = usePrivy();
+  // const {wallets} = useWallets();
   // WAGMI hooks
   const {address, isConnected, isConnecting, isDisconnected} = useAccount();
   const {disconnect} = useDisconnect();
-  const {setActiveWallet} = useSetActiveWallet();
+  // const {setActiveWallet} = useSetActiveWallet();
 
   return (
     <header className="flex items-center h-14 px-4 border-b bg-white w-full shrink-0 dark:bg-gray-950">
@@ -33,11 +33,11 @@ export const Navbar = () => {
         Nutri-Know
       </Link>
       <nav className="ml-auto flex items-center space-x-4">
-        {/* <ConnectButton /> */}
-        {ready && !authenticated && (
+        <ConnectButton />
+        {/* {ready && !authenticated && (
             <Button onClick={login}>Login</Button>
-        )}
-        {ready && authenticated && (
+        )} */}
+        {/* {ready && authenticated && (
             <div
             key={address}
             className="flex min-w-full flex-row flex-wrap items-center justify-between gap-2 bg-slate-50 p-4"
@@ -45,11 +45,9 @@ export const Navbar = () => {
             <div>
               <MonoLabel label={shorten(user?.wallet?.address)} />
             </div>
-            {/* <p>User {user?.wallet?.address} is logged in.</p> */}
             <Button onClick={logout}>Logout</Button>
           </div>
-
-        )}
+        )} */}
       </nav>
     </header>
   );
