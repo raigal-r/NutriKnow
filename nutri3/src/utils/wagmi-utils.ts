@@ -1,11 +1,11 @@
-import { type PublicClient } from "@wagmi/core";
-import {type WalletClient } from "@wagmi/core";
+// import { type PublicClient } from "@wagmi/core";
+// import {type WalletClient } from "@wagmi/core";
 import { type HttpTransport } from "viem";
 import { useEffect, useState } from "react";
 import { usePublicClient, useWalletClient } from "wagmi";
 import { ethers, JsonRpcProvider, JsonRpcSigner } from "ethers";
 
-export function publicClientToProvider(publicClient: PublicClient) {
+export function publicClientToProvider(publicClient: any) {
     const { chain, transport } = publicClient;
     const network = {
         chainId: chain.id,
@@ -21,7 +21,7 @@ export function publicClientToProvider(publicClient: PublicClient) {
     return new ethers.JsonRpcProvider(transport.url, network);
 }
 
-export async function walletClientToSigner(walletClient: WalletClient) {
+export async function walletClientToSigner(walletClient: any) {
     const { account, chain, transport } = walletClient;
     const network = {
         chainId: chain.id,

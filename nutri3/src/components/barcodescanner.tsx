@@ -17,10 +17,13 @@ import {
 import { useSigner } from "../utils/wagmi-utils";
 import { useAccount } from 'wagmi';
 
- 
-
 interface BarcodeScannerProps {
   active: boolean;
+}
+
+interface HealthGradeResponse {
+  grade: number;
+  healthExplanation: string;
 }
 
 export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
@@ -39,8 +42,30 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
   const signer = useSigner();
   const account = useAccount();
   const usrAddress = account?.address;
-  await eas.connect(signer);
 
+  function attestWithEAS(signer: any, eas: any, schemaUID: string, score: string, healthExplanation: string) {
+    console.log('attestWithEAS');
+    (async () => {
+      await eas.connect(signer);
+      const schemaEncoder = new SchemaEncoder("string score,string healthExplanation");
+      const encodedData = schemaEncoder.encodeData([
+        { name: "score", value: score.toString(), type: "string" },
+        { name: "healthExplanation", value: healthExplanation.toString(), type: "string" }
+      ]);
+      const tx = await eas.attest({
+        schema: schemaUID,
+        data: {
+          recipient: "0x0000000000000000000000000000000000000000",
+          expirationTime: 0,
+          revocable: true,
+          data: encodedData,
+        },
+      });
+      console.log('tx', tx)
+      const newAttestationUID = await tx.wait();
+      console.log("New attestation UID:", newAttestationUID);
+    })();
+  }
 
   const toggleActive = () => setIsActive(!isActive);
 
@@ -72,10 +97,14 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
         body: JSON.stringify({nutriments, user}),
     });
     console.log('response', response)
-    const parsed: FoodEntry = await response.json();
-
-
+    const parsed = await response.json();
+    console.log(parsed);
+    const grade = parsed.grade;
+    const healthExplanation = parsed.healthExplanation;
     console.log("rawResponse", JSON.stringify(parsed));
+
+    
+    attestWithEAS(signer, eas, schemaUID, grade, healthExplanation );
     return parsed;
 }
 
