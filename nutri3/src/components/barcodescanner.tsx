@@ -84,7 +84,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
     const account = useAccount();
     const usrAddress = account?.address;
 
-    RegisterIpAsset();
+
 
     function attestWithEAS(signer: any, eas: any, schemaUID: string, score: string, healthExplanation: string) {
         console.log('attestWithEAS');
@@ -148,7 +148,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
 
 
         attestWithEAS(signer, eas, schemaUID, grade, healthExplanation);
-        makeStory();
+        RegisterIpAsset();
         return parsed;
     }
 
