@@ -37,8 +37,8 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
   const [isData, setIsData] = useState<boolean>(false);
 
   //Attestation
-  const easContractAddress = "0x4200000000000000000000000000000000000021";
-  const schemaUID = "0xc9490184bff7a3a2af1605bf744ce7e0f9d56c402637b32bba91f44c80251ffd";
+  const easContractAddress = "0xC2679fBD37d54388Ce493F1DB75320D236e1815e";
+  const schemaUID = "0xc7d77c7d0df3b45b2167003ad301e9ad6933429ec0e343a26a983a9684e0f53e";
   const eas = new EAS(easContractAddress);
 
   // Signer must be an ethers-like signer.
