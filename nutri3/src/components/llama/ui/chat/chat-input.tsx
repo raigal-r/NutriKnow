@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 
 export interface ChatInputProps {
   /** The current value of the input */
@@ -16,6 +17,7 @@ export interface ChatInputProps {
 }
 
 export default function ChatInput(props: ChatInputProps) {
+
   return (
     <>
       <form

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useZxing } from "react-zxing";
 import axios from "axios";
 import Link from "next/link";
-import ChatSection from "../components/llama/chat-section";
+import {ChatSection} from "../components/llama/chat-section";
 
 interface BarcodeScannerProps {
   active: boolean;
@@ -77,7 +77,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
         </div>
         
       )}
-      {!isActive && (
+      {!isActive && !isData &&(
       <>
         <button onClick={toggleActive}>Toggle Window</button>
         <button onClick={resetScan}>Reset Scan</button>

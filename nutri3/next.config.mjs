@@ -3,6 +3,11 @@ const nextConfig = {
     reactStrictMode: true,
     webpack: config => {
       config.resolve.fallback = { fs: false, net: false, tls: false };
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        sharp$: false,
+        "onnxruntime-node$": false,
+      };
       return config;
     },
     typescript: {
@@ -11,7 +16,7 @@ const nextConfig = {
       // your project has type errors.
       // !! WARN !!
       ignoreBuildErrors: true,
-    },    
+    },
   };
 
 export default nextConfig;

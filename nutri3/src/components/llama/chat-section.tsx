@@ -4,8 +4,15 @@ import { useChat } from "ai/react";
 import { useMemo } from "react";
 import { insertDataIntoMessages } from "./transform";
 import { ChatInput, ChatMessages } from "./ui/chat";
+import { useEffect } from "react";
 
-export default function ChatSection(value) {
+import fs from "node:fs/promises";
+import { Document, VectorStoreIndex } from "llamaindex";
+
+interface ChatSectionProps {
+  result: string;
+}
+export const ChatSection: React.FC<{ result: Object }> = (result) => {  
   
   const {
     messages,
@@ -26,6 +33,7 @@ export default function ChatSection(value) {
   const transformedMessages = useMemo(() => {
     return insertDataIntoMessages(messages, data);
   }, [messages, data]);
+
 
   return (
     <div className="space-y-4 max-w-5xl w-full">

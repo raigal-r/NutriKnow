@@ -15,12 +15,12 @@ export default function HeroSection() {
         Scan, Understand, Thrive - Empowering Your Healthy Choices
       </h1>
       <p className="mb-2 md:mb-12 text-md md:text-lg lg:text-xl leading-snug max-w-4xl">
-      NutriKnow utilizes advanced AI to translate expert nutritional guidelines into personalized, healthy food choices. Nutritionists set the standards for what's healthy, and our AI applies these criteria to guide your daily eating decisions.
+      NutriKnow utilizes advanced AI to translate expert nutritional guidelines into personalized, healthy food choices. Nutritionists set the standards for what iss healthy, and our AI applies these criteria to guide your daily eating decisions.
       </p>
       <Image
           src="/NutriKnow.png" // Corrected path
           width={500}    // Desired width
-          height={300}   // Desired height
+          height={300}   // Desired heights
           alt="Description" // Alt text for accessibility
         />
     </div>
