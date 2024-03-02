@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-// contract address 0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8 in Base Sepolia
+// contract address 0x2f302E1604E3657035C1EADa450582fA4417f598 in Base Sepolia
 
 contract MemberManagement {
     struct Member {
@@ -15,6 +15,7 @@ contract MemberManagement {
     event MemberAdded(address indexed memberAddress, uint height, uint weight, uint bornYear, Role role);
     event MemberRoleChanged(address indexed memberAddress, Role newRole);
     event MemberUpdated(address indexed memberAddress, uint height, uint weight, uint bornYear);
+    event MemberRegistered(address indexed memberAddress, uint height, uint weight, uint bornYear, Role role);
 
     mapping(address => Member) public members;
     mapping(address => Role) public roles;
@@ -37,6 +38,18 @@ contract MemberManagement {
         owner = msg.sender;
         roles[msg.sender] = Role.Admin;
         emit MemberAdded(msg.sender, 0, 0, 0, Role.Admin);
+    }
+
+    function registerMember() public {
+        // Check if the member already exists (default role is assumed to be 0 for non-existing members)
+        require(roles[msg.sender] == Role(0), "Member already registered.");
+
+        // Register the new member with default values
+        members[msg.sender] = Member(0, 0, 0); // Assuming 0 as default values for height, weight, and bornYear
+        roles[msg.sender] = Role.User; // Assigning a default role of User
+
+        // Emit an event with the new member information
+        emit MemberRegistered(msg.sender, 0, 0, 0, Role.User);
     }
 
     function addMember(address _memberAddress, uint _height, uint _weight, uint _bornYear, Role _role) public onlyAdmin {
