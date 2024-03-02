@@ -43,7 +43,7 @@ async function RegisterIpAsset() {
     // Update these
     const tokenId = BigInt(1); // Your NFT token ID as BigInt
     // const tokenId = BigInt(23); // Example
-    const nftContract = '0xdAab4f7a97068fD165f8E63ff3E29A57b91409ef'; // Update if using your own NFT
+    const nftContract = '0xeaF376A5a86e5fE86c1a65eFe9F256F00D4C5862'; // Update if using your own NFT
 
     const policyId = BigInt(0); // Policy ID from RegisterPILPolicy.tsx, if want to attach policy in same transaction
     const ipName = 'IP Man'; // Name of your IP, if applicable
@@ -76,7 +76,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
 
     //Attestation
     const easContractAddress = "0xC2679fBD37d54388Ce493F1DB75320D236e1815e";
-    const schemaUID = "0xa6cbb5a90a981d62cbef421f5c43b1d553525eef41405a355594fd5728de9e1a";
+    const schemaUID = "0xc7d77c7d0df3b45b2167003ad301e9ad6933429ec0e343a26a983a9684e0f53e";
     const eas = new EAS(easContractAddress);
 
     // Signer must be an ethers-like signer.
@@ -146,9 +146,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
         const healthExplanation = parsed.healthExplanation;
         console.log("rawResponse", JSON.stringify(parsed));
 
-
         attestWithEAS(signer, eas, schemaUID, grade, healthExplanation);
-        RegisterIpAsset();
         return parsed;
     }
 
@@ -171,6 +169,8 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
             }
             const parsed = await createFoodEntry(res?.data.product.nutriments, user);
             console.log('parsed:', JSON.stringify(parsed))
+
+            await RegisterIpAsset();
 
             return res
 
