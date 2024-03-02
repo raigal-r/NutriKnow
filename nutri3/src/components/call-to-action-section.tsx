@@ -8,7 +8,7 @@ import {useAccount, useDisconnect} from 'wagmi';
 import Image from 'next/image';
 
 import { createWalletClient, custom } from 'viem'
-import { sepolia } from 'viem/chains'
+import { baseSepolia, sepolia } from 'viem/chains'
 
 import { MemberContractAbi } from "@/abi/member-contract-abi";
 import { useRouter } from 'next/navigation'
@@ -21,19 +21,19 @@ export default function CallToActionSection() {
     const router = useRouter();
 
     const walletClient = createWalletClient({
-        chain: sepolia,
+        chain: baseSepolia,
         transport: custom((window as any).ethereum)
     })
 
     const MemberProcess = async () => {
         const [account] = await walletClient.getAddresses();
         await walletClient.writeContract({
-          address:  process.env.NEXT_PUBLIC_MEMBER_CONTRACT_ADDRESS_SEPOLIA as `0x${string}`,
+          address:  process.env.NEXT_PUBLIC_MEMBER_CONTRACT_ADDRESS_BASE_SEPOLIA as `0x${string}`,
           abi: MemberContractAbi,   
           functionName: 'registerMember',
           args: [],
           account: account,
-          chain: sepolia
+          chain: baseSepolia
         }).then((result) => {
           console.log(result);
           router.push("/welcome");

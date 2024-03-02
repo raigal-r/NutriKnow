@@ -1,8 +1,15 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Run Application locally
+Make sure to include ENV variables
 
-First, run the development server:
+```bash
+NEXT_PUBLIC_PRIVY_APP_ID=
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=
+OPENAI_API_KEY=
+MODEL=gpt-4-turbo-preview
+NEXT_PUBLIC_MODEL=gpt-4-turbo-preview
+```
 
 ```bash
 npm run dev
@@ -13,24 +20,69 @@ pnpm dev
 # or
 bun dev
 ```
+## Generel Architecture
+![image Info](./pictures/architecture_overview.jpeg)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Authentication
+User Authentication is build using common web3 wallets as well as social logins using Privy, enabling the enduser to have a web2 user login experience.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Smart contract interaction
+The implemented smart contract acts for user management and RBAC roles within the application
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### Profile information
 
-To learn more about Next.js, take a look at the following resources:
+### User types
+Enduser
+Curator
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### User dashboard
+Scan Barcode
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Verifiable Credentials
+Todo: Explain what should happen. Is this implemented?
+Issue proof on creation of xyz
 
-## Deploy on Vercel
+### AI Interaction
+Explain
+Manage content
+User experience text based
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Proof of knowledge
+Explain
+Ensure quality contribution / no fake
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## User Flow
+
+### Login / Connect wallet
+The user has two options to log into his account:
+
+1. Connect wallet (done)
+
+Common connect wallet, using common wallets like MetaMask
+
+2. Social Login (todo)
+
+Enabling web2 ux like user onboarding using Account Abstraction and social Logins.
+
+![image Info](./pictures/walletselector.jpeg)
+(example selection of social logins provided by Privy)
+
+### Join DAO
+The user accepts the invite to the DAO by calling a join function on the deployed smart contract.
+
+### Scan new barcode
+The user scans barcode of a product. The products nutrition facts form together with the user information the base of the AI prompt generated.
+![image Info](./pictures/scan.jpeg)
+(Enduser scanning Barcode of a product to retrieve nutrition facts)
+
+### Retrieve information of product
+The user gets a text based rating of the food provided, including a score.
+The user is promopted to attest that those results are accurate. Accepting the prompt creates a new attestation on chain.
+![image Info](./pictures/ai_result.jpeg)
+(Text based rating of food provided. Prompt to attest the given facts.)
+
+### Validate information on attestation service
+The generated attestation can be validated on chain and taken into account on further model development.
+![image Info](./pictures/attest.jpeg)
+(attest on chain)
