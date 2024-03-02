@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "./authProvider";
+import { AuthProviderRainbowKit } from "./authProviderRainbow";
 import {Navbar} from "./navbar";
 import '@rainbow-me/rainbowkit/styles.css';
 import React from 'react';
@@ -22,10 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
 
-          <AuthProvider>
+          <AuthProviderRainbowKit>
             <Navbar />
             {children}
-          </AuthProvider>
+          </AuthProviderRainbowKit>
 
 
       </body>

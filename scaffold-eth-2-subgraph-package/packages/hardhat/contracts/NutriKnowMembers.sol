@@ -3,6 +3,7 @@ pragma solidity ^0.8.20;
 
 // contract address 0xBCAeC92fb15A22a02886bb5d17593837b8959D62 in Sepolia
 // contract address 0x2f302E1604E3657035C1EADa450582fA4417f598 in Base Sepolia
+// contract address 0xf1D63b42fb8c4887d6deB34c5fba81B18Bd2e3Ea in Arbitrum Sepolia
 
 contract MemberManagement {
     struct Member {
