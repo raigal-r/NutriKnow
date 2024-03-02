@@ -3,6 +3,21 @@ import { useZxing } from "react-zxing";
 import axios from "axios";
 import Link from "next/link";
 import {ChatSection} from "../components/llama/chat-section";
+import {FoodEntry, User} from  '../types/dbSchema';
+import {POST} from '../app/api/newScore/route';
+import  { EAS, SchemaEncoder }  from "@ethereum-attestation-service/eas-sdk";
+import {
+  ChatMessage,
+  Document,
+  MongoDBAtlasVectorSearch,
+  VectorStoreIndex,
+  storageContextFromDefaults,
+} from "llamaindex";
+
+import { useSigner } from "../utils/wagmi-utils";
+import { useAccount } from 'wagmi';
+
+ 
 
 interface BarcodeScannerProps {
   active: boolean;
@@ -14,6 +29,18 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
 
   const [isActive, setIsActive] = useState<boolean>(active);
   const [isData, setIsData] = useState<boolean>(false);
+
+  //Attestation
+  const easContractAddress = "0x4200000000000000000000000000000000000021";
+  const schemaUID = "0xc9490184bff7a3a2af1605bf744ce7e0f9d56c402637b32bba91f44c80251ffd";
+  const eas = new EAS(easContractAddress);
+
+  // Signer must be an ethers-like signer.
+  const signer = useSigner();
+  const account = useAccount();
+  const usrAddress = account?.address;
+  await eas.connect(signer);
+
 
   const toggleActive = () => setIsActive(!isActive);
 
@@ -32,7 +59,27 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
     setResult("");
   }
 
-  const getProductFromBarcode = async (barcode: String) => {
+  async function createFoodEntry(nutriments: Object, user: Object) {
+    // Mimic an asynchronous operation, for example, saving to a database
+    console.log('createFood')
+    console.log('nutriments', JSON.stringify(nutriments))
+    console.log('user',JSON.stringify(user))
+    const response = await fetch('../api/newScore/', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({nutriments, user}),
+    });
+    console.log('response', response)
+    const parsed: FoodEntry = await response.json();
+
+
+    console.log("rawResponse", JSON.stringify(parsed));
+    return parsed;
+}
+
+  const getProductFromBarcode = async (barcode: string) => {
 
     try {
     console.log(barcode);
@@ -42,6 +89,16 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
     const nutriments = res?.data.product.nutriments
     setNutriments(nutriments)
     console.log("data:", res?.data.product.nutriments) //tabla nutricional
+    const user =  {
+      id: '11',
+      ageBorn: '1990',
+      height: '175',
+      weight: '80',
+      nutriSkils: `Explain like I'm five`
+    }
+    const parsed = await createFoodEntry(res?.data.product.nutriments, user);
+    console.log('parsed:',JSON.stringify(parsed))
+
     return res
     
   } catch (error) {
