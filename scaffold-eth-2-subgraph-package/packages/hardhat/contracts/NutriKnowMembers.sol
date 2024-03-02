@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+// contract address 0xBCAeC92fb15A22a02886bb5d17593837b8959D62 in Sepolia
 // contract address 0x2f302E1604E3657035C1EADa450582fA4417f598 in Base Sepolia
 
 contract MemberManagement {
