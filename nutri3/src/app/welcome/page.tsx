@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Card,
   CardHeader,
@@ -11,7 +13,40 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
+import { createWalletClient, custom } from 'viem'
+import { baseSepolia, sepolia } from 'viem/chains'
+import { useAccount } from "wagmi";
+
+import { MemberContractAbi } from "@/abi/member-contract-abi";
+import { useRouter } from 'next/navigation'
+
 const Welcome = () => {
+
+  const router = useRouter();
+  const { isConnected, address } = useAccount();
+  const walletClient = createWalletClient({
+    chain: baseSepolia,
+    transport: custom((window as any).ethereum)
+  })
+
+  const MemberUpdate = async () => {
+    const [account] = await walletClient.getAddresses();
+    await walletClient.writeContract({
+      address:  process.env.NEXT_PUBLIC_MEMBER_CONTRACT_ADDRESS_BASE_SEPOLIA as `0x${string}`,
+      abi: MemberContractAbi,   
+      functionName: 'updateMember',
+      args: [address as `0x${string}`, 180 as unknown  as bigint, 180 as unknown  as bigint, 1980 as unknown  as bigint],
+      account: account,
+      chain: baseSepolia
+    }).then((result) => {
+      console.log(result);
+      router.push("/overview");
+    }).catch((error) => {
+      console.log(error);
+    });  
+  }    
+
+
   return (
     <section className="flex flex-col items-center justify-center w-full h-screen overflow-auto py-2 md:py-24 lg:py-32">
       <div className="py-16">
@@ -64,7 +99,7 @@ const Welcome = () => {
                                 </label>
                               </div>
                               <div className="flex gap-3 -mb-8 py-4 border-t border-gray-200 dark:border-gray-800">
-                                  <a href="overview"  className="group rounded-xl disabled:border *:select-none [&>*:not(.sr-only)]:relative *:disabled:opacity-20 disabled:text-gray-950 disabled:border-gray-200 disabled:bg-gray-100 dark:disabled:border-gray-800/50 disabled:dark:bg-gray-900 dark:*:disabled:!text-white text-gray-950 bg-gray-100 hover:bg-gray-200/75 active:bg-gray-100 dark:text-white dark:bg-gray-500/10 dark:hover:bg-gray-500/15 dark:active:bg-gray-500/10 flex gap-1.5 items-center text-sm h-8 px-3.5 justify-center">
+                                  <a onClick={() => {MemberUpdate()}}   className="group rounded-xl disabled:border *:select-none [&>*:not(.sr-only)]:relative *:disabled:opacity-20 disabled:text-gray-950 disabled:border-gray-200 disabled:bg-gray-100 dark:disabled:border-gray-800/50 disabled:dark:bg-gray-900 dark:*:disabled:!text-white text-gray-950 bg-gray-100 hover:bg-gray-200/75 active:bg-gray-100 dark:text-white dark:bg-gray-500/10 dark:hover:bg-gray-500/15 dark:active:bg-gray-500/10 flex gap-1.5 items-center text-sm h-8 px-3.5 justify-center">
                                       <span>Register</span>
                                   </a>
                               </div>
