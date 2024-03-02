@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from "react";
 import { useZxing } from "react-zxing";
 import axios from "axios";
@@ -8,6 +9,8 @@ import { POST } from '../app/api/newScore/route';
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
 import { StoryClient, StoryConfig } from "@story-protocol/core-sdk";
 import { http } from 'viem';
+import { useRegisterRootIp } from '@story-protocol/react';
+import { stringToHex } from 'viem';
 
 
 import {
@@ -30,6 +33,40 @@ interface HealthGradeResponse {
     healthExplanation: string;
 }
 
+async function RegisterIpAsset() {
+    const {
+        writeContractAsync,
+        isPending: isPendingInWallet,
+        data: txHash,
+    } = useRegisterRootIp();
+
+    // Update these
+    const tokenId = BigInt(1); // Your NFT token ID as BigInt
+    // const tokenId = BigInt(23); // Example
+    const nftContract = '0xdAab4f7a97068fD165f8E63ff3E29A57b91409ef'; // Update if using your own NFT
+
+    const policyId = BigInt(0); // Policy ID from RegisterPILPolicy.tsx, if want to attach policy in same transaction
+    const ipName = 'IP Man'; // Name of your IP, if applicable
+    const contentHash = stringToHex('0x', { size: 32 }); // Content hash of your NFT, if applicable
+    const externalURL = 'https://example.com'; // External URL for your IP, if applicable
+
+
+
+    await writeContractAsync({
+        functionName: 'registerRootIp',
+        args: [policyId, nftContract, tokenId],
+    });
+
+
+
+    const text =
+        tokenId === undefined
+            ? '2. Update the tokenId value in RegisterIpAsset.tsx'
+            : '2. Register your NFT as an IP Asset. A successful transaction will result in a `ipId` value, emitted as an event, that represents your IPA ID.';
+
+    return console.log(txHash);
+}
+
 export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
     const [result, setResult] = useState("");
     const [nutriments, setNutriments] = useState("");
@@ -38,8 +75,8 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
     const [isData, setIsData] = useState<boolean>(false);
 
     //Attestation
-    const easContractAddress = "0x4200000000000000000000000000000000000021";
-    const schemaUID = "0xc9490184bff7a3a2af1605bf744ce7e0f9d56c402637b32bba91f44c80251ffd";
+    const easContractAddress = "0xC2679fBD37d54388Ce493F1DB75320D236e1815e";
+    const schemaUID = "0x9a409566d5bcee0f9e3464090992f52d7b2465b3142e435fd2b863058514c164";
     const eas = new EAS(easContractAddress);
 
     // Signer must be an ethers-like signer.
@@ -47,21 +84,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
     const account = useAccount();
     const usrAddress = account?.address;
 
-    const config: StoryConfig = {
-        transport: http(process.env.RPC_PROVIDER_URL),
-        account: account
-    };
-    const client = StoryClient.newClient(config);
-
-    const makeStory = async () => {
-        const response = await client.ipAsset.registerRootIp({
-            tokenContractAddress: "0xdaab4f7a97068fd165f8e63ff3e29a57b91409ef", // your NFT contract address
-            tokenId: "1", // your NFT token ID
-            txOptions: { waitForTransaction: true }
-        });
-
-        console.log(`Root IPA created at transaction hash ${response.txHash}, IPA ID: ${response.ipId}`);
-    }
+    RegisterIpAsset();
 
     function attestWithEAS(signer: any, eas: any, schemaUID: string, score: string, healthExplanation: string) {
         console.log('attestWithEAS');
