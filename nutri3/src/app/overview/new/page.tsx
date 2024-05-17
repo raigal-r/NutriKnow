@@ -17,13 +17,13 @@ const NewRecord = () => {
   // create a on page load function
   return (
     <div className="flex items-center justify-center min-h-screen py-12 px-4">
-      <div className="space-y-4 w-full max-w-sm">
-        <div className="space-y-2">
-          <div className="space-y-2">
+      <div className="space-y-4 w-full max-w-sm bg-gradient-to-b from-red-500 to-white">
+        <div className="space-y-2 bg-gradient-to-b from-red-500 to-white">
+          <div className="space-y-2 bg-gradient-to-b from-red-500 to-white">
             <Card>
-              <CardHeader className="p-6">
+              <CardHeader className="p-6 bg-gradient-to-b from-red-500 to-white">
                 <CardTitle className="text-3xl font-bold">
-                  Add new Record
+                  Add new product
                 </CardTitle>
                 <CardDescription>
                   Scan Bar code of your Food to add new Record
@@ -34,7 +34,7 @@ const NewRecord = () => {
                     console.log("Open Camera");
                     console.log(cameraOpen)
                     setCameraOpen(!cameraOpen)}
-                    }>Open Camera</Button>
+                    }></Button>
               </CardFooter>
               <BarcodeScanner active={false}/>
             </Card>

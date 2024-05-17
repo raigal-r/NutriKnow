@@ -12,17 +12,12 @@ export default function HeroSection() {
         className="mb-4" // Alt text for accessibility
       />
       <h1 className="text-md md:text-xl lg:text-4xl font-bold mt-3 mb-3 leading-snug  max-w-4xl mt-2">
-        Scan, Understand, Thrive - Empowering Your Healthy Choices
+        Descentralized Food Reporting - Empowering Your Healthy Choices
       </h1>
-      <p className="mb-2 md:mb-12 text-md md:text-lg lg:text-xl leading-snug max-w-4xl">
-      NutriKnow utilizes advanced AI to translate expert nutritional guidelines into personalized, healthy food choices. Nutritionists set the standards for what iss healthy, and our AI applies these criteria to guide your daily eating decisions.
+     
+      <p className="text-md md:text-lg lg:text-xl leading-snug max-w-4xl">
+        Scan the barcode from a product, introduce your personal profile and get personalized assestment from an AI trained directly by nutricionists. 
       </p>
-      <Image
-          src="/NutriKnow.png" // Corrected path
-          width={500}    // Desired width
-          height={300}   // Desired heights
-          alt="Description" // Alt text for accessibility
-        />
     </div>
   )
 }

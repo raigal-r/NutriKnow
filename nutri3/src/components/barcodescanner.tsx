@@ -30,6 +30,9 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
   const [result, setResult] = useState("");
   const [nutriments, setNutriments] = useState("");
 
+  const [score, setScore] = useState("");
+  const [healthExplanation, setHealthExplanation] = useState("");
+
   const [isActive, setIsActive] = useState<boolean>(active);
   const [isData, setIsData] = useState<boolean>(false);
 
@@ -100,7 +103,9 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
     const parsed = await response.json();
     console.log(parsed);
     const grade = parsed.grade;
+    setScore(grade);
     const healthExplanation = parsed.healthExplanation;
+    setHealthExplanation(healthExplanation);
     console.log("rawResponse", JSON.stringify(parsed));
 
     
@@ -154,37 +159,57 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ active }) => {
           <>
             <video ref={ref} />
           </>
-          <button onClick={toggleActive}>Toggle Window</button>
-        <button onClick={resetScan}>Reset Scan</button>
-      <p>
+          <button 
+            className="my-4 middle none center mr-4 rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onClick={toggleActive}>
+              Open Camera          
+            </button>
+        {/* <button onClick={resetScan}>Reset Scan</button> */}
+      {/* <p>
         <span>Last result:</span>
           <span>{result}</span>     
-      </p>
-        </div>
+      </p> */}
+      </div>
         
       )}
       {!isActive && !isData &&(
       <>
-        <button onClick={toggleActive}>Toggle Window</button>
-        <button onClick={resetScan}>Reset Scan</button>
-        <p>
+        <button 
+        className="my-4 middle none center mr-4 rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        onClick={toggleActive}>
+          Open Camera          
+        </button>
+        {/* <button onClick={resetScan}>Reset Scan</button> */}
+        {/* <p>
           <span>Last result:</span>
           <span>{result}</span>     
-        </p>
+        </p> */}
       </>
       )}
       {!isActive && isData && (
         <>
-          <ChatSection result = {nutriments}/>
           <p>
-            Text
+            Product characteristics
           </p>
-          <button onClick={toggleActive}>Toggle Window</button>
-          <button onClick={resetScan}>Reset Scan</button>
           <p>
+            Score: {score}
+
+          </p>
+          <p>
+          Description: {healthExplanation}
+
+          </p>
+          <ChatSection result = {nutriments}/>
+          <button 
+            className="my-4 middle none center mr-4 rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onClick={toggleActive}>
+              Open Camera          
+            </button>
+          {/* <button onClick={resetScan}>Reset Scan</button> */}
+          {/* <p>
             <span>Last result:</span>
             <span>{result}</span>     
-            </p>
+          </p> */}
         </>    
       )}
     </div>
